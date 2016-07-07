@@ -1,0 +1,7 @@
+platform :ios, '7.0'
+pod "AFNetworking"
+pod 'SVProgressHUD'
+pod 'Bolts'
+pod 'JSONModel'
+pod 'SDWebImage'
+pod 'SVPullToRefresh'
