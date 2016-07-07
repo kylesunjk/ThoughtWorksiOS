@@ -1,0 +1,9 @@
+/* 
+  error_codes.strings
+  iChangi Jbeacon
+
+  Created by Yunarta Kartawahyudi on 29/12/14.
+  Copyright (c) 2014 Massive Infinity. All rights reserved.
+*/
+"generic_network_failed" = "Unable to connect to internet";
+"json_deserialization_failed" = "json_deserialization_failed";
