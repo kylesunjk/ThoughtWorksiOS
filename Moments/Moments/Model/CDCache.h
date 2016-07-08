@@ -12,8 +12,10 @@
 
 @interface CDCache : NSManagedObject
 
+@property (nonatomic, assign) NSInteger index;
 @property (nonatomic, retain) NSString *json;
 @property (nonatomic, retain) NSNumber *timestamp;
 @property (nonatomic, retain) NSString *uri;
-//@property (strong , nonatomic) NSString *dataversion;
+@property (nonatomic, strong) NSDictionary *contents;
+
 @end

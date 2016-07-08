@@ -1,107 +1,74 @@
 //
-// Created by Ethan Hunt on 4/4/14.
-// Copyright (c) 2014 Massive Infinity. All rights reserved.
+//  TweetsCacheData.m
+//  Moments
+//
+//  Created by MDT003MBP on 7/7/16.
+//  Copyright © 2016 abc. All rights reserved.
 //
 
-#import "MICacheData.h"
+#import "TweetsCacheData.h"
 
-
-@implementation MICacheData {
+@implementation TweetsCacheData{
     NSManagedObjectContext       *_managedObjectContext;
     NSManagedObjectModel         *_managedObjectModel;
     NSPersistentStoreCoordinator *_persistentStoreCoordinator;
 }
 
+
 #pragma mark db operation
 
-- (CDCache *)dbLoad:(NSString *)uri {
+- (TweetModel *)dbLoad:(NSString *)uri {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
+    
     //Setting Entity to be Queried
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"CDCache" inManagedObjectContext:[self managedObjectContext]];
     [fetchRequest setEntity:entity];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uri = %@", uri]];
-
-    // Query on managedObjectContext With Generated fetchRequest
-    NSError *error;
-    NSArray *fetchedRecords     = [[self managedObjectContext] executeFetchRequest:fetchRequest error:&error];
-
-    if ([fetchedRecords count] > 0) {
-        return fetchedRecords[0];
-    }
-    else {
-        return nil;
-    }
-}
-
-- (CDCache *)dbLoadWithIndex:(NSInteger)index {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    //Setting Entity to be Queried
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CDCache" inManagedObjectContext:[self managedObjectContext]];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"index = %d", index]];
     
     // Query on managedObjectContext With Generated fetchRequest
     NSError *error;
     NSArray *fetchedRecords     = [[self managedObjectContext] executeFetchRequest:fetchRequest error:&error];
     
     if ([fetchedRecords count] > 0) {
+        
+        
         return fetchedRecords[0];
     }
     else {
         return nil;
     }
 }
-
-
-- (CDCache *)dbSaveWithIndex:(NSInteger)index withContent:(NSDictionary *)content {
-    CDCache *cache = [self dbLoadWithIndex:index];
-    if (cache == nil) {
-        cache = [NSEntityDescription insertNewObjectForEntityForName:@"CDCache" inManagedObjectContext:[self managedObjectContext]];
-    }
-    
-    [cache setIndex:index];
-    [cache setContents:content];
-    [cache setTimestamp:[NSNumber numberWithDouble:(double)[[NSDate date] timeIntervalSince1970]]];
-    
-    NSError *error;
-    if ([[self managedObjectContext] save:&error]) {
-        return cache;
-    } else {
-        return nil;
-    }
-}
-
 
 - (void)dbSave:(NSString *)uri withContent:(NSString *)content withExpiry:(NSDate *)date {
-    CDCache *cache = [self dbLoad:uri];
+    TweetCoreDataModel *cache = [self dbLoad:uri];
     if (cache == nil) {
         cache = [NSEntityDescription insertNewObjectForEntityForName:@"CDCache" inManagedObjectContext:[self managedObjectContext]];
     }
-
+    
     double time = (double) [date timeIntervalSince1970];
-
-    [cache setUri:uri];
-    [cache setJson:content];
+    
+    [cache setContent:uri];
+    [cache setImages:content];
+    [cache setSender:];
+    [cache setComments:];
     [cache setTimestamp:[NSNumber numberWithDouble:time]];
-
+    
     NSError *error;
     if (![[self managedObjectContext] save:&error]) {
-
+        
     }
 }
 
-- (CDCache *)dbSave:(NSString *)uri withContent:(NSString *)content {
-    CDCache *cache = [self dbLoad:uri];
+- (TweetCoreDataModel *)dbSave:(NSString *)uri withContent:(NSString *)content {
+    TweetCoreDataModel *cache = [self dbLoad:uri];
     if (cache == nil) {
         cache = [NSEntityDescription insertNewObjectForEntityForName:@"CDCache" inManagedObjectContext:[self managedObjectContext]];
     }
-
+    
     [cache setUri:uri];
     [cache setJson:content];
     [cache setTimestamp:[NSNumber numberWithDouble:(double)[[NSDate date] timeIntervalSince1970]]];
-
+    
     NSError *error;
     if ([[self managedObjectContext] save:&error]) {
         return cache;
@@ -111,7 +78,7 @@
 }
 
 - (void)dbDelete:(NSString *)uri {
-    CDCache *cache = [self dbLoad:uri];
+    TweetCoreDataModel *cache = [self dbLoad:uri];
     if (cache != nil) {
         [[self managedObjectContext] deleteObject:cache];
     }
@@ -125,13 +92,13 @@
     if (_managedObjectContext != nil) {
         return _managedObjectContext;
     }
-
+    
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
-
+    
     return _managedObjectContext;
 }
 
@@ -141,7 +108,7 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-
+    
     _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     return _managedObjectModel;
 }
@@ -152,28 +119,28 @@
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
-
-    NSURL *storeURL = [[MICacheData applicationDocumentsDirectory] URLByAppendingPathComponent:@"cache.sqlite"];
-
+    
+    NSURL *storeURL = [[TweetsCacheData applicationDocumentsDirectory] URLByAppendingPathComponent:@"cache.sqlite"];
+    
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-
+    
     return _persistentStoreCoordinator;
 }
 
 #pragma mark - CoreData singleon
 
-+ (MICacheData *)singleton {
-    static MICacheData     *sharedMyManager = nil;
++ (TweetsCacheData *)singleton {
+    static TweetsCacheData     *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];
     });
-
+    
     return sharedMyManager;
 }
 

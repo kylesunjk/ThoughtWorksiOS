@@ -11,7 +11,11 @@
 
 - (CDCache *)dbLoad:(NSString *)uri;
 
+- (CDCache *)dbLoadWithIndex:(NSInteger)index;
+
 - (void)dbSave:(NSString *)uri withContent:(NSString *)content withExpiry:(NSDate *)expiry;
+
+- (CDCache *)dbSaveWithIndex:(NSInteger)index withContent:(NSDictionary *)content;
 
 - (CDCache *)dbSave:(NSString *)uri withContent:(NSString *)content;
 

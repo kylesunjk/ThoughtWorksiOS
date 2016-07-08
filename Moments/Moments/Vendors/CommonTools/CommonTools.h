@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 @interface CommonTools : NSObject
 + (NSData *)toJSONData:(id)theData;
@@ -16,19 +15,4 @@
 
 +(NSString *)toJSONString:(id)theData;
 
-+(NSString *)generateCommonTime;
-
-+(NSString *)generateTimePeriod:(NSString *)startTime endStampTime:(NSString *)endTime;
-
-+(NSString *)getCurrentDate;
-
-+(NSString *)getDateString:(NSString*)date ByInputDateformat:(NSString *)incomeFormatString byoutPutDateformat:(NSString *)outcomeFormatString;
-
-+(BOOL)checkNetworkAccess;
-
-+(CLLocationManager *)getCurrentLocaionManager:(id)controller;
-
-+(BOOL)validForSuccessfulResponse:(id)response withError:(NSError *)error;
-
-+ (UIImage *)fixOrientation:(UIImage *)oldImage withImageSize:(float)size;
 @end

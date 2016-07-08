@@ -14,5 +14,7 @@
 @dynamic json;
 @dynamic timestamp;
 @dynamic uri;
+@dynamic contents;
+@dynamic index;
 
 @end
