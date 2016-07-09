@@ -7,11 +7,13 @@
 //
 
 #import "MomentsTableViewController.h"
+#import <Bolts/BFExecutor.h>
 #import "MomentService.h"
 #import "UserModel.h"
 #import "TweetModel.h"
-
-
+#import "MomentsProfileTableViewCell.h"
+#import "UIScrollView+SVPullToRefresh.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 @interface MomentsTableViewController ()<UITableViewDelegate , UITableViewDataSource>
 @property (nonatomic , strong) UITableView *momentsTableView;
 @property (nonatomic , strong) NSMutableArray *momentsBindingDataArray;
@@ -24,23 +26,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[MomentService getTweetsByUser:@"jsmith"] continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-        
-        return t;
-
+    [self setViewControllerStyle];
+    [self generateMomentsTableview];
+    
+    __weak typeof(self) weakSelf = self;
+    
+//    NSArray *dsadas = [NSArray arrayWithObjects:[weakSelf getCurrentUserInfoWithUserName:@"jamith"], nil]
+    [self.momentsTableView addPullToRefreshWithActionHandler:^{
+        [[BFTask taskForCompletionOfAllTasks:@[[weakSelf getCurrentUserInfoWithUserName:@"jsmith"],[weakSelf getTweets:@"jsmith" withRange:NSMakeRange(0, 5)]]] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id _Nullable(BFTask * _Nonnull t) {
+            [weakSelf.momentsTableView reloadData];
+            [weakSelf.momentsTableView.pullToRefreshView stopAnimating];
+            return nil;
+        }];
     }];
     
-    [[MomentService getUserInfoByUserName:@"jsmith"] continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-        NSError *parseError = nil;
-        self.loginUser = [[UserModel alloc] initWithString:[t.result valueForKey:@"json"] error:&parseError];
-        return t;
+    [self.momentsTableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf getTweets:@"jsmith" withRange:NSMakeRange(0, 5)];
     }];
+    
+    [self.momentsTableView triggerPullToRefresh];
 
 }
 
 -(void) generateMomentsTableview{
     
-    self.momentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
+    self.momentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
+    
+    self.momentsTableView.estimatedRowHeight = 44.;
+    self.momentsTableView.rowHeight = UITableViewAutomaticDimension;
     
     self.momentsTableView.delegate = self;
     self.momentsTableView.dataSource = self;
@@ -49,6 +62,28 @@
 
 }
 
+- (void)setViewControllerStyle{
+    self.title = @"Moments";
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+}
+
+-(BFTask *)getCurrentUserInfoWithUserName:(NSString *)name{
+    return [[MomentService getUserInfoByUserName:name] continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        NSError *parseError = nil;
+        self.loginUser = [[UserModel alloc] initWithString:[t.result valueForKey:@"json"] error:&parseError];
+        return t;
+    }];
+}
+
+-(BFTask *)getTweets:(NSString *)userName withRange:(NSRange)tweetRange{
+    return [[MomentService getTweetsByUser:userName] continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
+        
+        return t;
+        
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -57,10 +92,20 @@
 
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  self.momentsBindingDataArray.count;
+    return 1;
+    //    return  self.momentsBindingDataArray.count;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        
+        MomentsProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MomentsProfileTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MomentsProfileTableViewCell" owner:self options:nil] objectAtIndex:0];
+            }
+        cell.user  = self.loginUser;
+        return cell;
+    }
     return nil;
 }
 

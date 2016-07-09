@@ -29,9 +29,11 @@
     // Configure the view for the selected state
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    [self refreashData];
+}
 
-
--(void)refreashData{
+- (void)refreashData{
     
     [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
     
@@ -39,6 +41,18 @@
     
     [self.nickNameLabel setText:self.user.nickName];
     
+}
+
+-(void)dealloc{
+    @try {
+        [self removeObserver:self forKeyPath:@"user"];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 
 @end
