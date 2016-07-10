@@ -9,6 +9,9 @@
 #import "TweetModel.h"
 
 @implementation TweetModel
+-(BOOL) isValidTweet{
+    return self.content || self.images;
+}
 @end
 
 @implementation TweetModelList

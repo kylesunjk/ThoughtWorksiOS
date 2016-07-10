@@ -20,6 +20,7 @@
 @property (nonatomic , strong) UserModel *sender;
 @property (nonatomic , strong) NSArray <TweetModel *><Optional> *comments;
 
+-(BOOL) isValidTweet;
 @end
 
 @interface TweetModelList : JSONModel

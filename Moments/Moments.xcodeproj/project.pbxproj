@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27F8C5521D32818D0072A269 /* TweetImagesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8C5501D32818D0072A269 /* TweetImagesCollectionViewCell.m */; };
+		27F8C5531D32818D0072A269 /* TweetImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F8C5511D32818D0072A269 /* TweetImagesCollectionViewCell.xib */; };
+		27F8C5571D3281A60072A269 /* TweetCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8C5551D3281A60072A269 /* TweetCommentsTableViewCell.m */; };
+		27F8C5581D3281A60072A269 /* TweetCommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F8C5561D3281A60072A269 /* TweetCommentsTableViewCell.xib */; };
 		B2217D761D2DF41C00B45375 /* MomentService.m in Sources */ = {isa = PBXBuildFile; fileRef = B2217D751D2DF41C00B45375 /* MomentService.m */; };
 		B2217D7A1D2DFC8500B45375 /* MomentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2217D791D2DFC8500B45375 /* MomentsTableViewController.m */; };
 		B2217D7D1D2E018200B45375 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2217D7C1D2E018200B45375 /* UserModel.m */; };
@@ -63,6 +67,12 @@
 
 /* Begin PBXFileReference section */
 		073213A39DDE6E8314479FCD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		27F8C54F1D32818D0072A269 /* TweetImagesCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetImagesCollectionViewCell.h; sourceTree = "<group>"; };
+		27F8C5501D32818D0072A269 /* TweetImagesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetImagesCollectionViewCell.m; sourceTree = "<group>"; };
+		27F8C5511D32818D0072A269 /* TweetImagesCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetImagesCollectionViewCell.xib; sourceTree = "<group>"; };
+		27F8C5541D3281A60072A269 /* TweetCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCommentsTableViewCell.h; sourceTree = "<group>"; };
+		27F8C5551D3281A60072A269 /* TweetCommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCommentsTableViewCell.m; sourceTree = "<group>"; };
+		27F8C5561D3281A60072A269 /* TweetCommentsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCommentsTableViewCell.xib; sourceTree = "<group>"; };
 		2BBDFDAA642A6A4ED25C5E53 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B2217D741D2DF41C00B45375 /* MomentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentService.h; sourceTree = "<group>"; };
 		B2217D751D2DF41C00B45375 /* MomentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentService.m; sourceTree = "<group>"; };
@@ -195,6 +205,12 @@
 				B248123A1D2F8A550004920F /* MomentsTweetsTableViewCell.h */,
 				B248123B1D2F8A550004920F /* MomentsTweetsTableViewCell.m */,
 				B248123C1D2F8A550004920F /* MomentsTweetsTableViewCell.xib */,
+				27F8C54F1D32818D0072A269 /* TweetImagesCollectionViewCell.h */,
+				27F8C5501D32818D0072A269 /* TweetImagesCollectionViewCell.m */,
+				27F8C5511D32818D0072A269 /* TweetImagesCollectionViewCell.xib */,
+				27F8C5541D3281A60072A269 /* TweetCommentsTableViewCell.h */,
+				27F8C5551D3281A60072A269 /* TweetCommentsTableViewCell.m */,
+				27F8C5561D3281A60072A269 /* TweetCommentsTableViewCell.xib */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -426,6 +442,8 @@
 				B248123E1D2F8A550004920F /* MomentsTweetsTableViewCell.xib in Resources */,
 				B248D58A1D2DEDE400EFFD0D /* LaunchScreen.storyboard in Resources */,
 				B248D5871D2DEDE400EFFD0D /* Assets.xcassets in Resources */,
+				27F8C5581D3281A60072A269 /* TweetCommentsTableViewCell.xib in Resources */,
+				27F8C5531D32818D0072A269 /* TweetImagesCollectionViewCell.xib in Resources */,
 				B24812391D2F8A440004920F /* MomentsProfileTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,10 +519,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F8C5521D32818D0072A269 /* TweetImagesCollectionViewCell.m in Sources */,
 				B23AC15F1D2DF070005D4F49 /* CDCache.m in Sources */,
 				B2217D7A1D2DFC8500B45375 /* MomentsTableViewController.m in Sources */,
 				B248123D1D2F8A550004920F /* MomentsTweetsTableViewCell.m in Sources */,
 				B248D57C1D2DEDE400EFFD0D /* AppDelegate.m in Sources */,
+				27F8C5571D3281A60072A269 /* TweetCommentsTableViewCell.m in Sources */,
 				B24812381D2F8A440004920F /* MomentsProfileTableViewCell.m in Sources */,
 				B2217D7D1D2E018200B45375 /* UserModel.m in Sources */,
 				B23AC16E1D2DF070005D4F49 /* NSDeserializationFailed.m in Sources */,

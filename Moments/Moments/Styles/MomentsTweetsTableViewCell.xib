@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MomentsTweetsTableViewCell" rowHeight="258" id="KGk-i7-Jjw" customClass="MomentsTweetsTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MomentsTweetsTableViewCell" rowHeight="258" id="KGk-i7-Jjw" customClass="MomentsTweetsTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="386" height="258"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -27,17 +26,13 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNx-AU-uVt">
-                        <rect key="frame" x="84" y="45" width="294" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNx-AU-uVt">
+                        <rect key="frame" x="84" y="44" width="294" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8f-Ot-Qgt">
-                        <rect key="frame" x="84" y="74" width="294" height="104"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6TM-Td-aOE">
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6TM-Td-aOE">
                         <rect key="frame" x="84" y="186" width="294" height="27"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -52,33 +47,47 @@
                         </constraints>
                         <state key="normal" title="Button"/>
                     </button>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="o4X-lW-3Kt">
+                        <rect key="frame" x="84" y="73" width="238" height="105"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="105" id="OLq-gc-7xJ"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9h4-f5-i4I">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="H8f-Ot-Qgt" firstAttribute="top" secondItem="nNx-AU-uVt" secondAttribute="bottom" constant="8" id="75s-Q2-fxy"/>
+                    <constraint firstItem="o4X-lW-3Kt" firstAttribute="leading" secondItem="iS3-i0-arh" secondAttribute="leading" id="5li-Mg-BpZ"/>
                     <constraint firstItem="nNx-AU-uVt" firstAttribute="top" secondItem="iS3-i0-arh" secondAttribute="bottom" constant="8" id="E45-6X-BSN"/>
                     <constraint firstItem="iS3-i0-arh" firstAttribute="leading" secondItem="FyR-kN-2Qe" secondAttribute="trailing" constant="14" id="E5O-Rp-6UQ"/>
-                    <constraint firstItem="6TM-Td-aOE" firstAttribute="top" secondItem="H8f-Ot-Qgt" secondAttribute="bottom" constant="8" id="GeZ-53-h2j"/>
                     <constraint firstItem="lRp-Xu-ptw" firstAttribute="trailing" secondItem="6TM-Td-aOE" secondAttribute="trailing" id="Goc-Lo-ols"/>
+                    <constraint firstItem="6TM-Td-aOE" firstAttribute="top" secondItem="o4X-lW-3Kt" secondAttribute="bottom" constant="8" id="IHU-2K-573"/>
+                    <constraint firstItem="o4X-lW-3Kt" firstAttribute="top" secondItem="nNx-AU-uVt" secondAttribute="bottom" constant="8" id="JA9-rQ-VIf"/>
                     <constraint firstAttribute="trailing" secondItem="iS3-i0-arh" secondAttribute="trailing" constant="8" id="L4s-Xw-ddd"/>
                     <constraint firstItem="FyR-kN-2Qe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="MoU-kt-bZx"/>
-                    <constraint firstItem="H8f-Ot-Qgt" firstAttribute="leading" secondItem="iS3-i0-arh" secondAttribute="leading" id="NeP-Yg-9se"/>
                     <constraint firstItem="lRp-Xu-ptw" firstAttribute="top" secondItem="6TM-Td-aOE" secondAttribute="bottom" constant="8" id="SFc-KY-Cya"/>
                     <constraint firstItem="6TM-Td-aOE" firstAttribute="trailing" secondItem="iS3-i0-arh" secondAttribute="trailing" id="Xwv-v1-yRO"/>
                     <constraint firstItem="nNx-AU-uVt" firstAttribute="trailing" secondItem="iS3-i0-arh" secondAttribute="trailing" id="ai5-BQ-QcG"/>
+                    <constraint firstAttribute="trailing" secondItem="o4X-lW-3Kt" secondAttribute="trailing" constant="64" id="dBI-Kz-BZU"/>
                     <constraint firstItem="6TM-Td-aOE" firstAttribute="leading" secondItem="iS3-i0-arh" secondAttribute="leading" id="fBX-wP-28y"/>
                     <constraint firstItem="iS3-i0-arh" firstAttribute="top" secondItem="FyR-kN-2Qe" secondAttribute="top" id="hOg-dw-cCE"/>
                     <constraint firstAttribute="bottom" secondItem="lRp-Xu-ptw" secondAttribute="bottom" constant="16" id="hpN-j7-KvD"/>
                     <constraint firstItem="FyR-kN-2Qe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="mxX-w0-0pT"/>
                     <constraint firstItem="nNx-AU-uVt" firstAttribute="leading" secondItem="iS3-i0-arh" secondAttribute="leading" id="yA1-wl-o98"/>
-                    <constraint firstItem="H8f-Ot-Qgt" firstAttribute="trailing" secondItem="iS3-i0-arh" secondAttribute="trailing" id="ynb-Sc-YxG"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="collectionHeightConstraint" destination="OLq-gc-7xJ" id="svF-YC-77T"/>
+                <outlet property="tableviewHeightConstraint" destination="AEU-s7-RiY" id="2oR-PC-cOl"/>
                 <outlet property="tweetCommentActionButton" destination="lRp-Xu-ptw" id="ott-A5-R4J"/>
                 <outlet property="tweetCommentsTableView" destination="6TM-Td-aOE" id="rrm-hY-Db2"/>
                 <outlet property="tweetContentsLabel" destination="nNx-AU-uVt" id="VrB-jG-3MR"/>
                 <outlet property="tweetImageView" destination="FyR-kN-2Qe" id="Xcy-Wd-7Iy"/>
-                <outlet property="tweetResourceView" destination="H8f-Ot-Qgt" id="50Y-5f-bGN"/>
+                <outlet property="tweetResourceCollectionView" destination="o4X-lW-3Kt" id="Fn8-zx-bzm"/>
                 <outlet property="tweetSenderNameLabel" destination="iS3-i0-arh" id="dse-Po-UeO"/>
             </connections>
             <point key="canvasLocation" x="305" y="357"/>

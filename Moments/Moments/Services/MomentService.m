@@ -26,15 +26,9 @@
     return [[BFTask taskWithResult:path] continueWithBlock:^id(BFTask *task) {
         NSMutableArray *tweetsArray = [[NSMutableArray alloc] init];
         NSInteger count = 0;
-        while (tweetsArray.count < range.length) {
-            
-            CDCache *objectCache = [[MICacheData singleton] dbLoadWithIndex:range.location + count];
-            TweetModel *tweetModel = [[TweetModel alloc] initWithDictionary:objectCache.contents error:nil];
-            [tweetsArray addObject:tweetModel];
-            count = count + 1;
+        CDCache *objectCache = [[MICacheData singleton] dbLoadWithIndex:range.location + count];
         
-        }
-        if (tweetsArray == nil) {
+        if (objectCache == nil) {
 
             BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
             NSString *postingUrl = [MOMENTS_DOMAIN stringByAppendingString:path];
@@ -59,17 +53,27 @@
 
                     NSError *parseError = nil;
                     TweetModel *tweetModel = [[TweetModel alloc] initWithDictionary:tweetDic error:&parseError];
-                    if (!parseError) {
+                    if (!parseError && [tweetModel isValidTweet]) {
                         [array addObject:tweetModel];
                         [tasks addObject:[self savingIntoDatabaseWithIndex:index withContents:tweetDic]];
                         index = index+1;
                     }
                 }
                 [source setResult:[array subarrayWithRange:range]];
-                return [BFTask taskForCompletionOfAllTasksWithResults:tasks];
+                return [source task];
             }];
+            
+
         }
         else {
+            while (tweetsArray.count < range.length) {
+                
+                CDCache *objectCache = [[MICacheData singleton] dbLoadWithIndex:range.location + count];
+                TweetModel *tweetModel = [[TweetModel alloc] initWithDictionary:objectCache.contents error:nil];
+                [tweetsArray addObject:tweetModel];
+                count = count + 1;
+                
+            }
             return [BFTask taskWithResult:tweetsArray];
         }
     }];
@@ -128,9 +132,9 @@
 }
 
 
-+ (BFTask *)getTweetsByUser:(NSString *)userName{
++ (BFTask *)getTweetsByUser:(NSString *)userName withRange:(NSRange)range{
     
-    return [MomentService loadDataFromPath:[NSString stringWithFormat:@"%@/%@",userName,@"tweets"] withRange:NSMakeRange(0, 5)];
+    return [MomentService loadDataFromPath:[NSString stringWithFormat:@"%@/%@",userName,@"tweets"] withRange:range];
 }
 
 + (BFTask *)getUserInfoByUserName:(NSString *)userName{

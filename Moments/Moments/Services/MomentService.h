@@ -13,7 +13,7 @@
 
 + (BFTask *)loadDataFromPath:(NSString *)path withRange:(NSRange)range;
 + (BFTask *)loadUserInfo:(NSString *)path;
-+ (BFTask *)getTweetsByUser:(NSString *)userName;
++ (BFTask *)getTweetsByUser:(NSString *)userName withRange:(NSRange)range;
 + (BFTask *)getUserInfoByUserName:(NSString *)userName;
 
 @end
